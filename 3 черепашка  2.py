@@ -1,0 +1,37 @@
+import turtle
+K = open('sss.txt')
+a1= K.readline()
+a1= eval(a1)
+a2= K.readline()
+a2= eval(a2)
+a3= K.readline()
+a3= eval(a3)
+a4= K.readline()
+a4= eval(a4)
+a5= K.readline()
+a5= eval(a5)
+a6= K.readline()
+a6= eval(a6)
+a7= K.readline()
+a7= eval(a7)
+a8= K.readline()
+a8= eval(a8)
+a9= K.readline()
+a9= eval(a9)
+a0= K.readline()
+a0= eval(a0)
+def M(a,t):
+    turtle.penup()
+    turtle.goto(t,0)    
+    turtle.pendown()
+    for i in a:
+        x,y = i
+        x=x+t
+        y=y
+        turtle.goto(x, y)
+M(a1,0)
+M(a4,50)
+M(a1,100)
+M(a7,150)
+M(a0, 200)
+M(a0, 250)
