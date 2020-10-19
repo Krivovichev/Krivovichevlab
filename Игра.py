@@ -25,17 +25,20 @@ screen.blit(surf, (1000, 150))
 pygame.display.update()
 
 def click(event, x1, y1, r, x, y, score):
+    flag = 0 
     R = (x - x1) * (x - x1) + (y - y1) * (y - y1)
     if R < r * r:
         score +=1
+        flag = 1 
     return score
+    return flag
 def click1(event, x1, y1, R1, X1, Y1, score):
     if x1 > X1 and x1 < X1 + R1:
         if y1 > Y1 and y1 < Y1 + R1:
-            score += 2
+            score += 3
     return score
 
-
+flag = 0 
 N=4 # кол-во кружков
 M=2 # кол-во квадратиков
 
@@ -70,14 +73,25 @@ while not finished:
             
             for i in range(N):
                 click(event, x1, y1, R[i], X[i], Y[i], score)
+                score2 = score
                 score = click(event, x1, y1, R[i], X[i], Y[i], score)
+                if score2 < score:
+                    X[i] = -200
+                    flag =1
+            if flag == 0:
+                score -=1
+            else:
+                flag = 0
             text = font.render("Score: "+str(score),True, (255, 255, 255))
             surf.fill((0,0,0))
             surf.blit(text, [0,0])
             
             for k in range(M):
                 click1(event, x1 , y1 , R1[k], X1[k], Y1[k], score)
+                score2 = score
                 score = click1(event, x1 , y1 , R1[k], X1[k], Y1[k], score)
+                if score2 < score:
+                    X1[k] = -200
             text = font.render("Score: "+str(score),True, (255, 255, 255))
             surf.fill((0,0,0))
             surf.blit(text, [0,0])
@@ -96,7 +110,7 @@ while not finished:
             VY1[k] = randint (30, 50)
     for k in range(M):
         Y1[k] = Y1[k] + int(VY1[k])
-        VY1[k] = VY1[k] * 1.05
+        VY1[k] = int(VY1[k] * 1.1)
         rect(screen, color, (X1[k], Y1[k] , R1[k],R1[k] ))
 
     if T % 20 == 0:
