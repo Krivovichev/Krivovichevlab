@@ -24,7 +24,15 @@ surf.blit(text, [0,0])
 screen.blit(surf, (1000, 150))
 pygame.display.update()
 
-def click(event, x1, y1, r, x, y, score):
+'''
+Функция click определяет попало ли нажатие мышью по шарику
+Входные данные x1, y1, r, x, y, score
+x1 , y1 - координаты нажатия мышью
+x , y - координаты центра шарика
+r - радиус шарика
+score - текущее кол-во очков
+'''
+def click(x1, y1, r, x, y, score):
     flag = 0 
     R = (x - x1) * (x - x1) + (y - y1) * (y - y1)
     if R < r * r:
@@ -32,7 +40,15 @@ def click(event, x1, y1, r, x, y, score):
         flag = 1 
     return score
     return flag
-def click1(event, x1, y1, R1, X1, Y1, score):
+'''
+Функция click1 определяет попало ли нажатие мышью по квадратику
+Входные данные x1, y1, R1, X1, Y1, score
+x1 , y1 - координаты нажатия мышью
+X1 , Y1 - координаты левого верхнего угла квадрата
+R1 - сторона квадрата
+score - текущее кол-во очков
+'''
+def click1(x1, y1, R1, X1, Y1, score):
     if x1 > X1 and x1 < X1 + R1:
         if y1 > Y1 and y1 < Y1 + R1:
             score += 3
@@ -72,9 +88,9 @@ while not finished:
             x1 , y1 = event.pos
             
             for i in range(N):
-                click(event, x1, y1, R[i], X[i], Y[i], score)
+                click(x1, y1, R[i], X[i], Y[i], score)
                 score2 = score
-                score = click(event, x1, y1, R[i], X[i], Y[i], score)
+                score = click(x1, y1, R[i], X[i], Y[i], score)
                 if score2 < score:
                     X[i] = -200
                     flag =1
@@ -87,9 +103,9 @@ while not finished:
             surf.blit(text, [0,0])
             
             for k in range(M):
-                click1(event, x1 , y1 , R1[k], X1[k], Y1[k], score)
+                click1(x1 , y1 , R1[k], X1[k], Y1[k], score)
                 score2 = score
-                score = click1(event, x1 , y1 , R1[k], X1[k], Y1[k], score)
+                score = click1(x1 , y1 , R1[k], X1[k], Y1[k], score)
                 if score2 < score:
                     X1[k] = -200
             text = font.render("Score: "+str(score),True, (255, 255, 255))
